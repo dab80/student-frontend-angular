@@ -18,7 +18,7 @@ import {
 @Component({
   selector: 'app-major-class',
   templateUrl: './major-class.component.html',
-  styleUrls: ['./major-class.component.css']
+  styleUrls: ['./major-class.component.css'],
 })
 export class MajorClassComponent implements OnInit {
 
@@ -60,7 +60,7 @@ export class MajorClassComponent implements OnInit {
 
   deleteMajorClass(id: number) {
 
-    const dialogRef = this.dialog.open(DeleteConfirmComponent);
+    let dialogRef = this.dialog.open(DeleteConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

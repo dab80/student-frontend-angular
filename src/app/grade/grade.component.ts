@@ -1,13 +1,17 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { MdDialog, MdDialogRef } from '@angular/material';
 
-import { DataService } from '../data.service'
-import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component'
+import { DataService } from '../data.service';
+import { DeleteConfirmComponent } from '../delete-confirm/delete-confirm.component';
+import {
+  fadeInAnimation
+} from '../animations/fade-in.animation';
 
 @Component({
   selector: 'app-grade',
   templateUrl: './grade.component.html',
   styleUrls: ['./grade.component.css'],
+  animations: [fadeInAnimation]
 })
 export class GradeComponent implements OnInit {
 
@@ -27,12 +31,12 @@ export class GradeComponent implements OnInit {
         error =>  this.errorMessage = <any>error);
   }
 
-  deleteGrade(id:number) {
+  deleteGrade(id: number) {
 
-    let dialogRef = this.dialog.open(DeleteConfirmComponent);
+    const dialogRef = this.dialog.open(DeleteConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         this.dataService.deleteRecord('grade', id)
           .subscribe(
             grade => {this.successMessage = 'Record(s) deleted succesfully'; this.getGrades(); },

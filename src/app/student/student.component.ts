@@ -14,11 +14,15 @@ import {
 import {
   DeleteConfirmComponent
 } from '../delete-confirm/delete-confirm.component'
+import {
+  fadeInAnimation
+} from '../animations/fade-in.animation';
 
 @Component({
   selector: 'app-student',
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css'],
+  animations: [fadeInAnimation]
 })
 export class StudentComponent implements OnInit {
 
@@ -40,7 +44,6 @@ export class StudentComponent implements OnInit {
       .subscribe(
         students => this.students = students,
         error => this.errorMessage = < any > error);
-
   }
 
   getMajors() {
