@@ -18,14 +18,15 @@ import {
   DataService
 } from '../data.service';
 import {
-  fadeInAnimation
-} from '../animations/fade-in.animation';
+  slideInAnimation,
+} from '../animations/slide-in.animation';
 
 @Component({
   selector: 'app-major-form',
   templateUrl: './major-form.component.html',
   styleUrls: ['./major-form.component.css'],
-  animations: [fadeInAnimation]
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class MajorFormComponent implements OnInit {
 
@@ -70,6 +71,13 @@ export class MajorFormComponent implements OnInit {
       .subscribe((params: Params) => {
         (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+
       // console.log('Object for edit onInit= ' + JSON.stringify(this.major));
   }
 

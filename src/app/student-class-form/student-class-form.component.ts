@@ -1,7 +1,8 @@
 import 'rxjs/add/operator/switchMap';
 import {
   Component,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
 import {
   ActivatedRoute,
@@ -10,18 +11,27 @@ import {
 import {
   Location
 } from '@angular/common';
-
+import {
+  NgForm
+} from '@angular/forms';
 import {
   DataService
-} from '../data.service'
+} from '../data.service';
+import {
+  slideInAnimation,
+} from '../animations/slide-in.animation';
 
 @Component({
   selector: 'app-student-class-form',
   templateUrl: './student-class-form.component.html',
-  styleUrls: ['./student-class-form.component.css']
+  styleUrls: ['./student-class-form.component.css'],
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class StudentClassFormComponent implements OnInit {
 
+studentClassForm: NgForm;
+@ViewChild('studentClassForm') currentForm: NgForm;
   successMessage: string;
   errorMessage: string;
 
@@ -61,6 +71,12 @@ export class StudentClassFormComponent implements OnInit {
       .subscribe((params: Params) => {
         (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
 
     this.getStudents(); // getting students for the select drop down
     this.getClasses(); // getting classes for the select drop down

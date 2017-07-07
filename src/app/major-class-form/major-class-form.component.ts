@@ -18,13 +18,15 @@ import {
   DataService
 } from '../data.service';
 import {
-  fadeInAnimation
-} from '../animations/fade-in.animation';
+  slideInAnimation,
+} from '../animations/slide-in.animation';
+
 @Component({
   selector: 'app-major-class-form',
   templateUrl: './major-class-form.component.html',
   styleUrls: ['./major-class-form.component.css'],
-  animations: [fadeInAnimation]
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class MajorClassFormComponent implements OnInit {
 
@@ -69,6 +71,13 @@ majorClassForm: NgForm;
       .subscribe((params: Params) => {
         (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+
     this.getMajors(); // -- getting majors for the select drop down
     this.getClasses(); // -- getting clases for the select drop down
   }

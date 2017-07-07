@@ -17,16 +17,18 @@ import {
 
 import {
   DataService
-} from '../data.service'
+} from '../data.service';
 import {
-  fadeInAnimation
-} from '../animations/fade-in.animation';
+  slideInAnimation,
+} from '../animations/slide-in.animation';
+
 
 @Component({
   selector: 'app-assignment-form',
   templateUrl: './assignment-form.component.html',
   styleUrls: ['./assignment-form.component.css'],
-  animations: [fadeInAnimation]
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class AssignmentFormComponent implements OnInit {
 
@@ -80,6 +82,12 @@ export class AssignmentFormComponent implements OnInit {
       .subscribe((params: Params) => {
         (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
 
     this.getStudents(); // --getting students for the select drop down
     this.getGrades(); // -getting grades for the select drop down

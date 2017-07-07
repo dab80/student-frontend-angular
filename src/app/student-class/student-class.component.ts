@@ -15,10 +15,18 @@ import {
   DeleteConfirmComponent
 } from '../delete-confirm/delete-confirm.component'
 
+import {
+  fadeInAnimation
+} from '../animations/fade-in.animation';
+
 @Component({
   selector: 'app-student-class',
   templateUrl: './student-class.component.html',
   styleUrls: ['./student-class.component.css'],
+  animations: [fadeInAnimation],
+  host: {
+    '[@fadeInAnimation': ''
+  }
 })
 export class StudentClassComponent implements OnInit {
 
@@ -36,6 +44,11 @@ export class StudentClassComponent implements OnInit {
     this.getStudentClasses();
     this.getStudents();
     this.getClasses();
+    // -- turn the footer on, if off
+    let div = document.getElementById('the-footer');
+    if (div.style.display == 'none') {
+      div.style.display = 'block';
+    }
   }
 
   getStudentClasses() {

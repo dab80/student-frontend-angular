@@ -1,17 +1,35 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, ViewChild }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Location }               from '@angular/common';
-import { NgForm } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {
+  ActivatedRoute,
+  Params
+} from '@angular/router';
+import {
+  Location
+} from '@angular/common';
+import {
+  NgForm
+} from '@angular/forms';
 
-import { DataService } from '../data.service'
-import { fadeInAnimation } from '../animations/fade-in.animation';
+import {
+  DataService
+} from '../data.service'
+import {
+  slideInAnimation,
+} from '../animations/slide-in.animation';
 
 @Component({
   selector: 'app-instructor-form',
   templateUrl: './instructor-form.component.html',
   styleUrls: ['./instructor-form.component.css'],
-  animations: [fadeInAnimation]
+  animations: [slideInAnimation],
+  host: {
+    '[@slideInAnimation]': ''
+  }
 })
 export class InstructorFormComponent implements OnInit {
   instructorForm: NgForm;
@@ -46,24 +64,31 @@ export class InstructorFormComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe((params: Params) => {
-        (+params['id']) ? this.getRecordForEdit() : null;
+        (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+
     this.getMajors(); // -- getting majors for the select drop down
   }
 
   saveInstructor(id) {
     if (typeof id === 'number') {
       this.dataService.editRecord('instructor', this.instructor, id)
-          .subscribe(
-            instructor => this.successMessage = 'Record updated succesfully',
-            error =>  this.errorMessage = <any>error);
-    }else {
+        .subscribe(
+          instructor => this.successMessage = 'Record updated succesfully',
+          error => this.errorMessage = < any > error);
+    } else {
       this.dataService.addRecord('instructor', this.instructor)
-          .subscribe(
-            instructor => this.successMessage = 'Record added succesfully',
-            error =>  this.errorMessage = <any>error);
-          }
-   // this.student = {};
+        .subscribe(
+          instructor => this.successMessage = 'Record added succesfully',
+          error => this.errorMessage = < any > error);
+    }
+    // this.student = {};
   }
 
   ngAfterViewChecked() {
@@ -76,9 +101,9 @@ export class InstructorFormComponent implements OnInit {
       .subscribe(
         data => this.onValueChanged(data)
       );
-    
-    }
-    onValueChanged(data?: any) {
+
+  }
+  onValueChanged(data ? : any) {
     let form = this.instructorForm.form;
 
     for (let field in this.formErrors) {
@@ -94,7 +119,7 @@ export class InstructorFormComponent implements OnInit {
       }
     }
   }
-  
+
   formErrors = {
     'first_name': '',
     'last_name': '',
@@ -123,8 +148,6 @@ export class InstructorFormComponent implements OnInit {
     }
   };
 
-    // this.instructor = {};
+  // this.instructor = {};
 
-  }
-
-
+}

@@ -19,14 +19,15 @@ import {
   DataService
 } from '../data.service'
 import {
-  fadeInAnimation
-} from '../animations/fade-in.animation';
+  slideInAnimation,
+} from '../animations/slide-in.animation';
 
 @Component({
   selector: 'app-student-form',
   templateUrl: './student-form.component.html',
   styleUrls: ['./student-form.component.css'],
-  animations: [fadeInAnimation]
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class StudentFormComponent implements OnInit {
 
@@ -64,6 +65,13 @@ export class StudentFormComponent implements OnInit {
       .subscribe((params: Params) => {
         (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
+
     this.getMajors(); // -- getting majors for the select drop down
   }
 

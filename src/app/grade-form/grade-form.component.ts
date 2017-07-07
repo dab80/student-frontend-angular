@@ -18,14 +18,15 @@ import {
   DataService
 } from '../data.service';
 import {
-  fadeInAnimation
-} from '../animations/fade-in.animation';
+  slideInAnimation,
+} from '../animations/slide-in.animation';
 
 @Component({
   selector: 'app-grade-form',
   templateUrl: './grade-form.component.html',
   styleUrls: ['./grade-form.component.css'],
-  animations: [fadeInAnimation]
+  animations: [slideInAnimation],
+  host: { '[@slideInAnimation]': '' }
 })
 export class GradeFormComponent implements OnInit {
 
@@ -64,6 +65,12 @@ export class GradeFormComponent implements OnInit {
       .subscribe((params: Params) => {
         (+params['id']) ? this.getRecordForEdit(): null;
       });
+
+    // -- turn the footer off
+    let div = document.getElementById('the-footer');
+    if (div.style.display !== 'none') {
+        div.style.display = 'none';
+    }
 
   }
 

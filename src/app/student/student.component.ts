@@ -37,6 +37,11 @@ export class StudentComponent implements OnInit {
   ngOnInit() {
     this.getStudents();
     this.getMajors();
+    // -- turn the footer on, if off
+    let div = document.getElementById('the-footer');
+    if (div.style.display == 'none') {
+      div.style.display = 'block';
+    }
   }
 
   getStudents() {

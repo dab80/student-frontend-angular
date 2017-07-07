@@ -1,4 +1,4 @@
-<section @fadeInAnimation>
+<section @slideInAnimation>
   <ol class="breadcrumb">
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/student_class">Student Classes</a></li>
@@ -19,12 +19,13 @@
   </div>
 
   <form (ngSubmit)="saveStudentClass(student_class.student_class_id)" #student_classForm="ngForm" class="form-horizontal">
-    <input [(ngModel)]="student_class.student_class_id" #student_class_id="ngModel" type="hidden" name="student_class_id">
+    <!--<input [(ngModel)]="student_class.student_class_id" #student_class_id="ngModel" type="hidden" name="student_class_id">-->
+    <input [(ngModel)]="student_class.student_class_id" type="hidden" name="student_class_id">
 
     <div class="form-group">
       <label for="student_id" class="col-sm-2 control-label">Student</label>
       <div class="col-sm-10 btn-group" dropdown keyboardNav="true">
-        <select class="form-control" [(ngModel)]="student_class.student_id" name="student_id">  
+        <select class="form-control" [(ngModel)]="student_class.student_id" name="student_id" required>  
         <option value="" disabled>Choose a Student</option>
         <ng-container *ngFor="let student of students">
           <option value={{student.student_id}}>{{student.first_name}} {{student.last_name}}</option>
@@ -36,7 +37,7 @@
     <div class="form-group">
       <label for="class_id" class="col-sm-2 control-label">Class</label>
       <div class="col-sm-10 btn-group" dropdown keyboardNav="true">
-        <select class="form-control" [(ngModel)]="student_class.class_id" name="class_id">        
+        <select class="form-control" [(ngModel)]="student_class.class_id" name="class_id" required>        
         <option value="" disabled>Choose a Class</option>
         <ng-container *ngFor="let class of classes">
           <option value={{class.class_id}}>{{class.subject}} {{class.course}}</option>
